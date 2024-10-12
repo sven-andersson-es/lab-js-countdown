@@ -8,20 +8,56 @@ let timer = null; // Variable to store the interval
 
 // Your code goes here ...
 const startButton = document.getElementById("start-btn");
-startButton.addEventListener("click", () => {
-  startCountdown();
-})
 
 
+function enableStartbutton() {
+  startButton.addEventListener("click", startCountdown) 
+}
+function disableStartbutton() {
+  startButton.removeEventListener("click", startCountdown) 
+  startButton.setAttribute("disabled","disabled")
+}
+enableStartbutton()
 
 // ITERATION 2: Start Countdown
 function startCountdown() {
   console.log("startCountdown called!");
-
-
+  const timeDisplay = document.getElementById("time")
+  disableStartbutton()
+  //check if timer is already initiated and stop it from being called again while running if the button is clicked
+  if (timer) {
+    clearInterval(timer)
+    console.log("timer is initiated");
+  } else {
+    console.log("timer is not initiated");
+  }
   // Your code goes here ...
+  timer = setInterval((time) => {
+    remainingTime -= 1;
+    console.log(remainingTime);
+    timeDisplay.innerText = remainingTime;
+    console.log("startCountdown called!");
+    if (remainingTime <= 0) {
+      clearInterval(timer)
+      showToast();
+      //enableStartbutton()
+    }
+  }, 100)
 }
 
+
+/* const counterElement = document.getElementById("counter")
+
+counterElement.innerText
+
+let index = 1
+const myinterval = setInterval(() => {
+    counterElement.innerText = index;
+    index++
+    if (index >= 100) {
+        clearInterval(myinterval)
+    }
+}, 10); */
 
 
 
